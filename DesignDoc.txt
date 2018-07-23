@@ -1,0 +1,132 @@
+Project-1 Submission 1 : Design for Rigorous 2PL concurrency control protocol with waitdie
+scheme for deadlock prevention.
+Submitted by:
+Saurabh Botre 1001409374
+Yashodhan Kumthekar 1001544391
+
+Data Structures:
+
+class Operation(tid, status, itemName)
+    tid
+    method //begin, read, write or end
+    itemName
+
+class Transaction(id, state, itemsLocked, timeStamp):
+    id
+    state
+    itemsLocked
+    timeStamp
+
+class Lock(itemName, lockState, readLockedTIDS)
+    id
+    itemName
+    lockState
+    writeLockTID
+    readlockedTIDS[]
+    watingOperations[]
+
+OperationsTable = List(Operation)
+LockTable = Map({itemName:Lock})
+TransactionTable = Map({transaction_id:Transaction})
+
+Data structure description:
+1. Read and parse the file, each line will represent one Operation and will be stored in OperationsTable as a List of objects of class Operation.
+2. LockTable will be a Map with itemName as key and object of class as value. All the items and their lock meta will be stored in LockTable.
+3. TransactionTable will store all the transaction details. It will be a map with keys as transaction id (tid) and value will be object of class Transaction.
+
+Psuedocode:
+
+For each operation in OperationsTable
+    Switch(Operation.method):
+
+        Case “Begin”:
+            Begin(Operation.tid)
+
+        Case “read”:
+            If TransactionTable.tid.status == “Blocked”
+                Append currentOperation to LockTable.itemName.waitingOperations
+            Else if TransactionTable.tid.status == “Aborted”
+                Transaction is already aborted Ignore
+            Else
+                Find item in lock table
+                If Item exists in LockTable
+                    If lock_state == “Read”
+                    readLock(tid, itemName);
+                    Else if lock_state == “WRITE’
+                    handleWaitDie(current_TID, conflicting_TID, item, currentOperation)
+                Else:
+                        Add a new Record to LockTable with Lock(itemName, “Read”,[tid])
+                        readLock(tid, itemName)
+
+        case “write”:
+            If Transaction.tid.status == “Blocked”
+                Append currentOperation to LockTable.itemName.waitingOperations
+            Else if Transaction.tid.status == “Aborted”
+                Transaction is already aborted Ignore
+            Else:
+                Find item in lock table:3
+                If exists in lock table:
+                    Check if it has read lock
+                    handleWaitDie(current_TID, conflicting_TID, item, currentOperation)
+                Else:
+                    Add a new Record to LockTable with Lock(itemName, “Write”,[tid])
+                    writeLock(tid, itemName);
+
+        Case “End”:
+            If transaction status == ‘Blocked’
+                Abort(i)
+            Else if transaction status == “Active”
+                Commit(tid)
+
+
+Procedures:
+Begin(tid)
+Add a record to TransactionTable with Transaction(tid, “Active”, [/*blank array*/],
+currentTimeStamp)
+
+readLock(tid, itemName)
+    append itemName to TransactionTable.tid.itemsLocked
+    Update LockTable.itemName.lockState=”Read”
+    Append tid to LockTable.itemName.readLockedTIDS
+
+writeLock(tid, itemName):
+    append itemName to TransactionTable.tid.itemsLocked
+    Update LockTable.itemName.lockState = “Write”
+    Apped tid to LockTable.itemName.writeLockedTIDS
+
+Unlock(tid, itemName)
+    Remove itemName from TransactionTable.tid.itemsLocked
+    If LockTable.itemName.waitingOperations is not empty
+        If waitingOperations[0].status == “Read”
+            readLock(waitingOperations[0].tid, waitingOperations[0].itemName)
+        else
+            writeLock(waitingOperations[0].tid, waitingOperations[0].itemName)
+        Update Transaction Table where TransactionTable.tid == waitingOperations[0].tid set
+        TransactionTable.tid.status = “Active”.
+        pop LockTable.itemName.waitingOperations[0]
+    Else:
+        Update LockTable.itemName.lockState = “None”
+        Update LockTable.itemName.writeLockTID = 0
+        If tid in LockTable.itemName.readLockTIDS pop
+
+Commit(tid)
+    Update TransactionTable.tid.status = “Committed”
+    For item in TransactionTable.tid.itemsLocked:
+        Unlock(tid, item)
+    Remove all from TransactionTable.tid.itemsLocked
+
+Abort(i)
+    Update TransactionTable.tid.status = “Abort”
+    For item in TransactionTable.tid.itemsLocked:
+        Unlock(tid, item)
+    Remove all from TransactionTable.tid.itemsLocked
+
+Block(tid, operation):
+    Update TransactionTable.tid.status = “Blocked”
+    Append operation to LockTables.itemName.waitingOperations
+
+handleWaitDie(current_TID, conflicting_TID, item, currentOperation)
+    if TransactionTable.current_TID.timeStamp > TransactionTable.conflicting_TID.timeStamp
+        abort(current_TID)
+    else:
+        Block(current_tid, currentOperation)
