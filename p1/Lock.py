@@ -11,4 +11,4 @@ class Lock():
                 self.lockState = lockState
                 self.writeLockTID = writeLockTID
                 self.readlockedTIDS = readLockedTIDS
-                self.watingOperations = waitingOperations
+                self.waitingOperations = waitingOperations
