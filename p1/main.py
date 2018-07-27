@@ -21,6 +21,7 @@ class DBMan():
                 self.TransactionTable.update({
                         curr_transaction.tid:curr_transaction
                 })
+                print "Begin T%s"%op.tid
 
         def __read(self, op):
                 if (self.TransactionTable[op.tid].state == "BLOCKED"):
@@ -39,7 +40,7 @@ class DBMan():
                                         self.handleWaitDie(op, self.LockTable[op.itemName].writeLockTID)
 
                         else:
-                                print "Creating new READ LockTable Record for %s"%op.itemName
+                                print "T%s readlocks %s"%(op.tid,op.itemName)
                                 new_lock = Lock(itemName=op.itemName, lockState="READ",
                                                                 readLockedTIDS=[op.tid],
                                                                 writeLockTID=None, waitingOperations=[])
@@ -77,7 +78,7 @@ class DBMan():
                                                 self.updateLock(op)
                                         else:
                                                 self.handleWaitDie(op, _tid)
-                                print "Conflict situation"
+                                #print "Conflict situation"
                         else:
                                 print "Creating new WRITE LockTable Record for %s"%op.itemName
                                 new_lock = Lock(itemName=op.itemName, lockState="WRITE",
@@ -105,11 +106,12 @@ class DBMan():
 
 
         def updateLock(self, op):
+                print "Updating lock on %s"%op.itemName
                 self.writeLock(op)
 
 
         def __end(self, op):
-                print "End %s"%op.tid
+                #print "End %s"%op.tid
                 if self.TransactionTable[op.tid].state == "BLOCKED":
                         print "Transaction %s already blocked"%(op.tid)
                         self.abort(op)
@@ -187,6 +189,7 @@ class DBMan():
                 self.TransactionTable[op.tid].status = status
                 for item in self.TransactionTable[op.tid].itemsLocked:
                         self.unlock(op, item)
+                        print "Unlock %s"%item
                 del self.TransactionTable[op.tid].itemsLocked[:]
 
         def handleWaitDie(self, req_op, conf_tid):
