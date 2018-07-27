@@ -130,3 +130,40 @@ handleWaitDie(current_TID, conflicting_TID, item, currentOperation)
         abort(current_TID)
     else:
         Block(current_tid, currentOperation)
+
+
+
+
+
+
+
+
+DDB, NOSQL, Object DBS, XML(?)
+DDB
+MCQS about concepts,
+fragmentation operations
+suppose we want to fo fragmentation
+transparency defs mcqs
+
+
+NOSQL:
+Categories of NOSQL
+Systems covered (what category each system)
+what is JSON and XML and CAT theorem
+Which props of cat are preferred in NOSQL and which are preffered in SQL Systems
+Neo4J example, write query patterns like in the example.
+For each system know replication mechanism, master slave master master.
+Dynamo DB hashing, circle with nodes and values of which node will the copy go in.
+Diff between DD level and Data model level between sql and nosql.
+
+ODB
+Create type statements
+Difference between keywords
+OOPS concepts.
+Concept of inverse relations, which relationships are inverse of each other.
+
+50% MCQ
+
+XML
+ER diagram and create XML with these rules.
+How to extract xml from relational db.
