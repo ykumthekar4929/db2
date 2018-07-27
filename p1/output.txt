@@ -1,0 +1,2575 @@
+Output for input1.txt
+**********
+
+Current Operation b 1 (None)
+
+Begin T1
+
+Lock Table current state : 
+
+{}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Y)
+
+T1 readlocks Y
+
+Lock Table current state : 
+
+{'Y': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']}}
+**********
+
+Current Operation w 1 (Y)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Y for T1
+Write Locked Y for Transaction 1
+
+Lock Table current state : 
+
+{'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']}}
+**********
+
+Current Operation r 1 (Z)
+
+T1 readlocks Z
+
+Lock Table current state : 
+
+{'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']}}
+**********
+
+Current Operation b 2 (None)
+
+Begin T2
+
+Lock Table current state : 
+
+{'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (X)
+
+T2 readlocks X
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'READ', 'read locked transactions': ['2'], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']}}
+**********
+
+Current Operation w 2 (X)
+
+Checking wait-die conditions between T2 and T2
+Updating lock on X for T2
+Write Locked X for Transaction 2
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']}}
+**********
+
+Current Operation w 1 (Z)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Z for T1
+Write Locked Z for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']}}
+**********
+
+Current Operation e 1 (None)
+
+Transaction 1 committing
+['Y', 'Z']
+Unlock Y from T1
+No waiting operations found
+Unlock Z from T1
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']}}
+**********
+
+Current Operation r 2 (Y)
+
+T2 readlocks Y
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['2'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X', 'Y']}}
+**********
+
+Current Operation b 3 (None)
+
+Begin T3
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['2'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X', 'Y']},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': []}}
+**********
+
+Current Operation r 3 (Z)
+
+T3 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['2'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['3'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X', 'Y']},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']}}
+**********
+
+Current Operation w 3 (Z)
+
+Checking wait-die conditions between T3 and T3
+Updating lock on Z for T3
+Write Locked Z for Transaction 3
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['2'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X', 'Y']},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']}}
+**********
+
+Current Operation w 2 (Y)
+
+Checking wait-die conditions between T2 and T2
+Updating lock on Y for T2
+Write Locked Y for Transaction 2
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '2', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X', 'Y']},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']}}
+**********
+
+Current Operation e 2 (None)
+
+Transaction 2 committing
+['X', 'Y']
+Unlock X from T2
+No waiting operations found
+Unlock Y from T2
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']}}
+**********
+
+Current Operation b 4 (None)
+
+Begin T4
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 4 (Y)
+
+Write Locked Y for Transaction 4
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '4', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': ['Y']}}
+**********
+
+Current Operation r 3 (X)
+
+T3 readlocks X
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'READ', 'read locked transactions': ['3'], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '4', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z', 'X']},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': ['Y']}}
+**********
+
+Current Operation w 3 (X)
+
+Checking wait-die conditions between T3 and T3
+Updating lock on X for T3
+Write Locked X for Transaction 3
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '3', 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '4', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z', 'X']},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': ['Y']}}
+**********
+
+Current Operation e 3 (None)
+
+Transaction 3 committing
+['Z', 'X']
+Unlock Z from T3
+No waiting operations found
+Unlock X from T3
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '4', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': ['Y']}}
+**********
+
+Current Operation w 4 (X)
+
+Write Locked X for Transaction 4
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '4', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': ['Y', 'X']}}
+**********
+
+Current Operation e 4 (None)
+
+Transaction 4 committing
+['Y', 'X']
+Unlock Y from T4
+No waiting operations found
+Unlock X from T4
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+Done executing
+===========================================
+
+Output for input2.txt
+**********
+
+Current Operation b 1 (None)
+
+Begin T1
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Y)
+
+T1 readlocks Y
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Y)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Y for T1
+Write Locked Y for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Z)
+
+T1 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'COMMITTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 2 (None)
+
+Begin T2
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (X)
+
+T2 readlocks X
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'READ', 'read locked transactions': ['2'], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (X)
+
+Checking wait-die conditions between T2 and T2
+Updating lock on X for T2
+Write Locked X for Transaction 2
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Z)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Z for T1
+Write Locked Z for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (Y)
+
+Checking wait-die conditions between T2 and T1
+Aborting T2
+['X']
+Unlock X from T2
+No waiting operations found
+Transaction T{'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []}  ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 1 (None)
+
+Transaction 1 committing
+['Y', 'Z']
+Unlock Y from T1
+No waiting operations found
+Unlock Z from T1
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 3 (None)
+
+Begin T3
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 3 (Z)
+
+T3 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['3'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 3 (Z)
+
+Checking wait-die conditions between T3 and T3
+Updating lock on Z for T3
+Write Locked Z for Transaction 3
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (Y)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 2 (None)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 3 (X)
+
+T3 readlocks X
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'READ', 'read locked transactions': ['3'], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z', 'X']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 3 (X)
+
+Checking wait-die conditions between T3 and T3
+Updating lock on X for T3
+Write Locked X for Transaction 3
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '3', 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z', 'X']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 4 (None)
+
+Begin T4
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '3', 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z', 'X']},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 4 (X)
+
+Checking wait-die conditions between T4 and T3
+Aborting T4
+[]
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '3', 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z', 'X']},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 3 (None)
+
+Transaction 3 committing
+['Z', 'X']
+Unlock Z from T3
+No waiting operations found
+Unlock X from T3
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 4 (None)
+
+Transaction {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+Done executing
+===========================================
+
+Output for input3.txt
+**********
+
+Current Operation b 1 (None)
+
+Begin T1
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Y)
+
+T1 readlocks Y
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Y)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Y for T1
+Write Locked Y for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Z)
+
+T1 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 2 (None)
+
+Begin T2
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (X)
+
+T2 readlocks X
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'READ', 'read locked transactions': ['2'], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (X)
+
+Checking wait-die conditions between T2 and T2
+Updating lock on X for T2
+Write Locked X for Transaction 2
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Z)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Z for T1
+Write Locked Z for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '2', 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['X']},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (Y)
+
+Checking wait-die conditions between T2 and T1
+Aborting T2
+['X']
+Unlock X from T2
+No waiting operations found
+Transaction T{'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []}  ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 1 (None)
+
+Transaction 1 committing
+['Y', 'Z']
+Unlock Y from T1
+No waiting operations found
+Unlock Z from T1
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 3 (None)
+
+Begin T3
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 3 (Z)
+
+T3 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['3'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 3 (Z)
+
+Checking wait-die conditions between T3 and T3
+Updating lock on Z for T3
+Write Locked Z for Transaction 3
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (Y)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 2 (None)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'ABORTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 4 (None)
+
+Begin T4
+
+Lock Table current state : 
+
+{'X': {'Lock State': None, 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': None, 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 4 (X)
+
+Write Locked X for Transaction 4
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': ['X']}}
+**********
+
+Current Operation r 3 (X)
+
+Checking wait-die conditions between T3 and T4
+ T3 will wait on T4
+Transaction T{'timeStamp': 3, 'state': 'BLOCKED', 'Transaction': '3', 'Items Locked': ['Z']}  BLOCKED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [r (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'BLOCKED', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'ACTIVE', 'Transaction': '4', 'Items Locked': ['X']}}
+**********
+
+Current Operation e 4 (None)
+
+Transaction 4 committing
+['X']
+Unlock X from T4
+Operations waiting : [r (3)]
+Releasing r (3) from waiting Operations
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': []},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'BLOCKED', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 3 (X)
+
+Transaction {'timeStamp': 3, 'state': 'BLOCKED', 'Transaction': '3', 'Items Locked': ['Z']} already BLOCKED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'BLOCKED', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 3 (None)
+
+Transaction {'timeStamp': 3, 'state': 'BLOCKED', 'Transaction': '3', 'Items Locked': ['Z']} already BLOCKED
+['Z']
+Unlock Z from T3
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+Done executing
+===========================================
+
+Output for input7.txt
+**********
+
+Current Operation b 1 (None)
+
+Begin T1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Y)
+
+T1 readlocks Y
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Y)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Y for T1
+Write Locked Y for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Z)
+
+T1 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 2 (None)
+
+Begin T2
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (Y)
+
+Checking wait-die conditions between T2 and T1
+Aborting T2
+[]
+Transaction T{'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []}  ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 3 (None)
+
+Begin T3
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 3 (Z)
+
+T3 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1', '3'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Z)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Z for T1
+Write Locked Z for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (Y)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (X)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 1 (None)
+
+Transaction 1 committing
+['Y', 'Z']
+Unlock Y from T1
+No waiting operations found
+Unlock Z from T1
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 3 (Z)
+
+Write Locked Z for Transaction 3
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '3', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Z']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 3 (None)
+
+Transaction 3 committing
+['Z']
+Unlock Z from T3
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (X)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 2 (None)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+Done executing
+===========================================
+
+Output for input6.txt
+**********
+
+Current Operation b 1 (None)
+
+Begin T1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Y)
+
+T1 readlocks Y
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Z)
+
+T1 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 2 (None)
+
+Begin T2
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (Y)
+
+T2 readlocks Y
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1', '2'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['Y']},
+ '3': {'timeStamp': 3, 'state': 'COMMITTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 3 (None)
+
+Begin T3
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1', '2'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['Y']},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 3 (Y)
+
+T3 readlocks Y
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1', '2', '3'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['Y']},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Y']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Z)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Z for T1
+Write Locked Z for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1', '2', '3'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['Y']},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': ['Y']},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 3 (Y)
+
+Checking wait-die conditions between T3 and T1
+Aborting T3
+['Y']
+Unlock Y from T3
+No waiting operations found
+Checking wait-die conditions between T3 and T2
+Aborting T3
+[]
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': ['1', '2'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': ['Y']},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (Y)
+
+Checking wait-die conditions between T2 and T1
+Aborting T2
+['Y']
+Unlock Y from T2
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (X)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 1 (None)
+
+Transaction 1 committing
+['Y', 'Z']
+Unlock Y from T1
+No waiting operations found
+Unlock Z from T1
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 3 (None)
+
+Transaction {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (X)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 2 (None)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+Done executing
+===========================================
+
+Output for input4.txt
+**********
+
+Current Operation b 1 (None)
+
+Begin T1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Z)
+
+T1 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 2 (None)
+
+Begin T2
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (X)
+
+Checking wait-die conditions between T2 and T4
+ T2 will wait on T4
+Transaction T{'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []}  BLOCKED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z']},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (X)
+
+Transaction {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []} already BLOCKED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z']},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Z)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Z for T1
+Write Locked Z for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': []},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z']},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (Y)
+
+Transaction {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []} already BLOCKED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': [r (2)]},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z']},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Y)
+
+T1 readlocks Y
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Y', 'write locked transaction': None, 'waiting operations': [r (2)]},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z', 'Y']},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Y)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Y for T1
+Write Locked Y for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [r (2)]},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z', 'Y']},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 3 (None)
+
+Begin T3
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [r (2)]},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z', 'Y']},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 3 (Z)
+
+Checking wait-die conditions between T3 and T1
+Aborting T3
+[]
+Transaction T{'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []}  ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [r (2)]},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Z', 'Y']},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 1 (None)
+
+Transaction 1 committing
+['Z', 'Y']
+Unlock Z from T1
+No waiting operations found
+Unlock Y from T1
+Operations waiting : [r (2)]
+Releasing r (2) from waiting Operations
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 3 (Z)
+
+Transaction {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (Y)
+
+Transaction {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []} already BLOCKED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 2 (None)
+
+Transaction {'timeStamp': 2, 'state': 'BLOCKED', 'Transaction': '2', 'Items Locked': []} already BLOCKED
+[]
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 3 (X)
+
+Transaction {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 3 (X)
+
+Transaction {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 3 (None)
+
+Transaction {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+Done executing
+===========================================
+
+Output for input5.txt
+**********
+
+Current Operation b 1 (None)
+
+Begin T1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Y)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Y for T1
+Write Locked Y for Transaction 1
+Transaction T{'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']}  ACTIVE
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 1 (Z)
+
+T1 readlocks Z
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 2 (None)
+
+Begin T2
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ACTIVE', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (Y)
+
+Checking wait-die conditions between T2 and T1
+Aborting T2
+[]
+Transaction T{'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []}  ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation b 3 (None)
+
+Begin T3
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ACTIVE', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 3 (Y)
+
+Checking wait-die conditions between T3 and T1
+Aborting T3
+[]
+Transaction T{'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []}  ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': 'READ', 'read locked transactions': ['1'], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 1 (Z)
+
+Checking wait-die conditions between T1 and T1
+Updating lock on Z for T1
+Write Locked Z for Transaction 1
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 3 (Y)
+
+Transaction {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': [w (2)]},
+ 'Z': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': '1', 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'ACTIVE', 'Transaction': '1', 'Items Locked': ['Y', 'Z']},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 1 (None)
+
+Transaction 1 committing
+['Y', 'Z']
+Unlock Y from T1
+Operations waiting : [w (2)]
+Releasing w (2) from waiting Operations
+Unlock Z from T1
+No waiting operations found
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 3 (None)
+
+Transaction {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (Y)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation r 2 (X)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation w 2 (X)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+**********
+
+Current Operation e 2 (None)
+
+Transaction {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []} already ABORTED
+
+Lock Table current state : 
+
+{'X': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'X', 'write locked transaction': '4', 'waiting operations': [w (3), r (2), w (2)]},
+ 'Y': {'Lock State': 'WRITE', 'read locked transactions': [], 'Item name': 'Y', 'write locked transaction': '1', 'waiting operations': []},
+ 'Z': {'Lock State': None, 'read locked transactions': [], 'Item name': 'Z', 'write locked transaction': None, 'waiting operations': []}}
+
+
+Transaction Table current state : 
+
+{'1': {'timeStamp': 1, 'state': 'COMMITTED', 'Transaction': '1', 'Items Locked': []},
+ '2': {'timeStamp': 2, 'state': 'ABORTED', 'Transaction': '2', 'Items Locked': []},
+ '3': {'timeStamp': 3, 'state': 'ABORTED', 'Transaction': '3', 'Items Locked': []},
+ '4': {'timeStamp': 4, 'state': 'COMMITTED', 'Transaction': '4', 'Items Locked': []}}
+Done executing
+===========================================
+
