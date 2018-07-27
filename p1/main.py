@@ -32,12 +32,13 @@ class DBMan():
                 else:
                         if self.LockTable.has_key(op.itemName):
                                 # print "%s already %s locked by T%s"%(op.itemName, self.LockTable[op.itemName].lockState, self.LockTable[op.itemName].readlockedTIDS)
-                                if self.LockTable[op.itemName].lockState == "READ":
-                                        print "Allow for shared lock"
-                                        self.readLock(op)
-                                elif self.LockTable[op.itemName].lockState == "WRITE":
+                                if self.LockTable[op.itemName].lockState == "WRITE":
                                         print "Handle Wait Dies"
                                         self.handleWaitDie(op, self.LockTable[op.itemName].writeLockTID)
+                                        
+                                else:
+                                        print "T%s readlocks %s"%(op.tid,op.itemName)
+                                        self.readLock(op)
 
                         else:
                                 print "T%s readlocks %s"%(op.tid,op.itemName)
@@ -65,20 +66,27 @@ class DBMan():
 
 
         def __write(self, op):
+        
                 if (self.TransactionTable[op.tid].state == "BLOCKED"):
                         self.LockTable[op.itemName].waitingOperations.append(op)
                         print "Transaction blocked already"
                 elif (self.TransactionTable[op.tid].state == "ABORTED"):
                         print "Transaction already aborted"
-                        pass
+                        
                 else:
                         if self.LockTable.has_key(op.itemName):
-                                for _tid in self.LockTable[op.itemName].readlockedTIDS:
-                                        if op.tid == _tid:
-                                                self.updateLock(op)
-                                        else:
-                                                self.handleWaitDie(op, _tid)
+                                #import ipdb; ipdb.set_trace()
+                                if self.LockTable[op.itemName].readlockedTIDS:
+                                        for _tid in self.LockTable[op.itemName].readlockedTIDS:
+                                                if op.tid == _tid:
+                                                        self.updateLock(op)
+                                                else:
+                                                        self.handleWaitDie(op, _tid)
+                                elif self.LockTable[op.itemName].writeLockTID is not None:
+                                        self.handleWaitDie(op, self.LockTable[op.itemName].writeLockTID)
                                 #print "Conflict situation"
+                                else:
+                                   self.writeLock(op)     
                         else:
                                 print "Creating new WRITE LockTable Record for %s"%op.itemName
                                 new_lock = Lock(itemName=op.itemName, lockState="WRITE",
@@ -97,6 +105,7 @@ class DBMan():
                                 Remove readlockedTIDS from the item if any
                                 Add tid to LockTable.itemName.writeLockedTIDS
                 '''
+                
                 self.LockTable[op.itemName].lockState = "WRITE"
                 if not op.itemName in self.TransactionTable[op.tid].itemsLocked:
                         self.TransactionTable[op.tid].itemsLocked.append(op.itemName)
@@ -112,13 +121,17 @@ class DBMan():
 
         def __end(self, op):
                 #print "End %s"%op.tid
-                if self.TransactionTable[op.tid].state == "BLOCKED":
-                        print "Transaction %s already blocked"%(op.tid)
-                        self.abort(op)
+                if self.TransactionTable[op.tid].state == "ABORTED":
+                        print "Transaction %s already aborted"%(op.tid)
+                        #self.abort(op)
                 elif self.TransactionTable[op.tid].state == "ACTIVE":
                         print "Transaction %s committing"%(op.tid)
                         self.commit(op)
-                pass
+                elif self.TransactionTable[op.tid].state == "BLOCKED":
+                        print "Transaction %s already blocked"%(op.tid)
+                        self.abort(op)
+                        
+                
 
 
         def unlock(self, op, itemName):
@@ -136,7 +149,8 @@ class DBMan():
                         Update LockTable.itemName.writeLockTID = 0
                         If tid in LockTable.itemName.readLockTIDS pop
                 '''
-                self.TransactionTable[op.tid].itemsLocked.remove(itemName)
+                print "Unlock %s"%itemName
+                #self.TransactionTable[op.tid].itemsLocked.remove(itemName)
                 if self.LockTable[itemName].waitingOperations:
                         if self.LockTable[itemName].waitingOperations[0].method == "r":
                                 self.readLock(self.LockTable[itemName].waitingOperations[0])
@@ -186,10 +200,12 @@ class DBMan():
                                 Unlock(tid, item)
                         Remove all from TransactionTable.tid.itemsLocked
                 '''
-                self.TransactionTable[op.tid].status = status
+                self.TransactionTable[op.tid].state = status
+                #import ipdb; ipdb.set_trace()
+                print self.TransactionTable[op.tid].itemsLocked
                 for item in self.TransactionTable[op.tid].itemsLocked:
                         self.unlock(op, item)
-                        print "Unlock %s"%item
+                        
                 del self.TransactionTable[op.tid].itemsLocked[:]
 
         def handleWaitDie(self, req_op, conf_tid):
@@ -199,11 +215,14 @@ class DBMan():
                         else:
                                 Block(current_tid, currentOperation)
                 '''
+                print "Checking wait-die conditions between T%s and T%s"%(req_op.tid, conf_tid)
                 if self.TransactionTable[req_op.tid].timeStamp > self.TransactionTable[conf_tid].timeStamp:
                         # self.abort([x for x in self.OperationsTable if x.tid==req_tid][0])
                         print "Abort"
+                        self.abort(req_op)
                 else:
                         print "Wait"
+                        self.block(req_op)
 
 
         actions  = {
@@ -215,6 +234,10 @@ class DBMan():
 
         def execute(self):
                 for op in self.OperationsTable:
+                        print "================================================================\n"
+                        print "Current Operation %s %s (%s)\n"%(op.method, op.tid, op.itemName)
+                        #import ipdb; ipdb.set_trace()
+                        #print "Hello"
                         self.actions[op.method](self, op)
                 print "Done executing"
 
